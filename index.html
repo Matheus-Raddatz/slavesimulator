@@ -18,7 +18,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-image: url("../img/CaveBackground.png");
+            background-image: url("./img/CaveBackground.png");
             background-size: cover;
             background-repeat: no-repeat;
             color: #fff;
@@ -181,14 +181,14 @@
     </div>
 
     <div id="goldDisplay">
-        <img id="goldImage" src="../img/coin.png" alt="Gold Icon">
+        <img id="goldImage" src="./img/coin.png" alt="Gold Icon">
         <span id="goldAmmount">0.0</span>
     </div>
 
     <div id="upgradeImages"></div>
 
     <div id="whipDisplay">
-        <button id="whipButton" onclick="whipClick()"><img id="whipImage" src="../img/Whip.png" alt="Whip Icon"></button>
+        <button id="whipButton" onclick="whipClick()"><img id="whipImage" src="./img/Whip.png" alt="Whip Icon"></button>
     </div>
 
     <script>
@@ -220,15 +220,15 @@
             var upgradeImage = document.createElement("img")
             if (slaveId == 0 && gold >= slavePrices[slaveId].toFixed(1)) {
                 goldPerSecond += 0.1
-                addImage("../img/PunchStickman.png", slaveId)
+                addImage("./img/PunchStickman.png", slaveId)
                 updatePrice(slaveId)
             } else if (slaveId == 1 && gold >= slavePrices[slaveId].toFixed(1)) {
                 goldPerSecond += 0.5
-                addImage("../img/PickStickman.png", slaveId)
+                addImage("./img/PickStickman.png", slaveId)
                 updatePrice(slaveId)
             } else if (slaveId == 2 && gold >= slavePrices[slaveId].toFixed(1)) {
                 goldPerSecond += 1.5
-                addImage("../img/DrillStickman.png", slaveId)
+                addImage("./img/DrillStickman.png", slaveId)
                 updatePrice(slaveId)
             }
         }

@@ -19,7 +19,7 @@
             padding: 0;
             overflow: hidden;
             background-image: url("../img/CaveBackground.png");
-            background-size: cover;
+            background-size: 100% 100%;
             background-repeat: no-repeat;
             color: #fff;
         }
@@ -121,8 +121,8 @@
         }
 
         #whipImage {
-            height: 340px;
-            width: 340px;
+            height: 20vw;
+            width: 20vw;
         }
 
         #whipButton {
@@ -137,8 +137,8 @@
         }
 
         .upgradeImage {
-            width: 50px;
-            height: 50px;
+            width: 5vw;
+            height: 5vw;
         }
 
         .upgradeTitle {
@@ -151,13 +151,13 @@
 <body style="background-color: #e7e7e7;">
 
     <div id="upgradeArrow" onclick="toggleSlaveUpgradeBox()">
-        <span>▼ Slave Upgrades ▼</span>
+        <span>▼ Slaves Shop ▼</span>
     </div>
 
     <div id="upgradeBox">
-        <button onclick="purchaseSlaveUpgrade(0)">Puncher Slave - <span id="puncherPrice">5.0 $</span></button>
-        <button onclick="purchaseSlaveUpgrade(1)">Pickaxe Slave - <span id="pickaxePrice">50.0 $</span></button>
-        <button onclick="purchaseSlaveUpgrade(2)">Drill Slave - <span id="drillPrice">250.0 $</span></button>
+        <button onclick="purchaseSlaveUpgrade(0)">Puncher Slave - <span id="slave0">5.0 $</span></button>
+        <button onclick="purchaseSlaveUpgrade(1)">Pickaxe Slave - <span id="slave1">50.0 $</span></button>
+        <button onclick="purchaseSlaveUpgrade(2)">Drill Slave - <span id="slave2">250.0 $</span></button>
     </div>
 
     <div id="upgradeArrowWhip" onclick="toggleWhipUpgradeBox()">
@@ -165,9 +165,9 @@
     </div>
 
     <div id="upgradeBoxWhip">
-        <button onclick="purchaseWhipUpgrade(0)">Tough Handle - <span id="puncherPrice">20.0 $</span></button>
-        <button onclick="purchaseWhipUpgrade(1)">Iron Tip - <span id="pickaxePrice">150.0 $</span></button>
-        <button onclick="purchaseWhipUpgrade(2)">Royal Leather Thong - <span id="drillPrice">500.0 $</span></button>
+        <button onclick="purchaseWhipUpgrade(0)" id="whipUpgrade0">Tough Handle - <span id="whip0">20.0 $</span></button>
+        <button onclick="purchaseWhipUpgrade(1)" id="whipUpgrade1">Iron Tip - <span id="whip1">150.0 $</span></button>
+        <button onclick="purchaseWhipUpgrade(2)" id="whipUpgrade2">Royal Leather Whip - <span id="whip2">500.0 $</span></button>
     </div>
 
     <div id="goldPerSecondDisplay">
@@ -207,7 +207,7 @@
             var upgradeBox = document.getElementById("upgradeBox")
             upgradeBox.style.display = (upgradeBox.style.display === "block") ? "none" : "block"
             var upgradeArrow = document.getElementById("upgradeArrow")
-            upgradeArrow.innerHTML = (upgradeArrow.innerHTML === "▲ Slave Upgrades ▲") ? "▼ Slave Upgrades ▼" : "▲ Slave Upgrades ▲"
+            upgradeArrow.innerHTML = (upgradeArrow.innerHTML === "▲ Slaves Shop ▲") ? "▼ Slaves Shop ▼" : "▲ Slaves Shop ▲"
         }
 
         function toggleWhipUpgradeBox() {
@@ -236,7 +236,14 @@
 
         function purchaseWhipUpgrade(whipId) {
             if (whipId == 0 && gold >= whipPrices[whipId]) {
-
+                goldPerClick += 0.1
+                hideUpgrade(whipId)
+            } else if (whipId == 1 && gold >= whipPrices[whipId]) {
+                goldPerClick += 0.3
+                hideUpgrade(whipId)
+            } else if (whipId == 2 && gold >= whipPrices[whipId]) {
+                goldPerClick += 0.5
+                hideUpgrade(whipId)
             }
         }
 
@@ -244,9 +251,7 @@
             gold -= slavePrices[slaveId]
             updateGoldDisplay()
             slavePrices[slaveId] *= 1.05
-            document.getElementById("puncherPrice").innerHTML = slavePrices[0].toFixed(1).toString() + " $"
-            document.getElementById("pickaxePrice").innerHTML = slavePrices[1].toFixed(1).toString() + " $"
-            document.getElementById("drillPrice").innerHTML = slavePrices[2].toFixed(1).toString() + " $"
+            document.getElementById("slave" + slaveId).innerText = slavePrices[slaveId].toFixed(1).toString() + " $"
         }
 
         function addImage(source, slaveId) {
@@ -297,6 +302,13 @@
         function updateGoldDisplay() {
             document.getElementById("goldAmmount").innerText = gold.toFixed(1)
             document.getElementById("goldPerSecondAmmount").innerText = goldPerSecond.toFixed(1)
+            document.getElementById("goldPerClickAmmount").innerText = goldPerClick.toFixed(1)
+        }
+
+        function hideUpgrade(whipId) {
+            gold -= whipPrices[whipId]
+            updateGoldDisplay()
+            document.getElementById("whipUpgrade" + whipId).style.display = "none"
         }
 
         setInterval(updateGold, 1000)
